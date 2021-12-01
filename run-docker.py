@@ -2,7 +2,7 @@
 
 import os, shutil, subprocess, sys
 
-branch  = 'warrior'
+branch  = 'hardknott'
 
 print('python run-docker.py with Branch ', branch)
 print('==========================================')
