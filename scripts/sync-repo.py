@@ -3,7 +3,7 @@
 import os, shutil, subprocess
 
 remote = 'origin'
-branch  = 'warrior'
+branch  = 'hardknott'
 
 print('repo-sync.py with Branch', branch)
 my_env = os.environ.copy()
