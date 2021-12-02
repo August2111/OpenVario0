@@ -1,13 +1,14 @@
-FROM crops/poky:ubuntu-18.04
+FROM crops/poky:debian-11
 
 USER root
 
-RUN apt-get update &&\
-	apt-get install -y  python-dev imagemagick ffmpeg repo git
+COPY files/sources.list /etc/apt/sources.list
 
-# Add gcc8 for XCSoar
-RUN apt-get install -y gcc-8 g++-8
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+RUN apt-get update &&\
+	apt-get install -y --no-install-recommends python3-dev imagemagick ffmpeg git curl rsync && apt-get clean
+
+# Add gcc for XCSoar
+RUN apt-get install --no-install-recommends -y gcc g++ && apt-get clean
 
 # Add rsync for kernel build system
 RUN apt-get install -y rsync
