@@ -21,9 +21,9 @@ print(' Path-Variable is: ', cwd, '!!!!!!!!!!!!!!')
 dockerfile = 'scripts/Dockerfile'
 
 target_dir = '/opt/openvario'
-with_docker_build = False
+with_docker_build = True
 if sys.platform.startswith('win'):
-    # is win
+    # is win, but this is very preliminary
     if with_docker_build:
         myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', container, './'], env = my_env, cwd = cwd, shell = False)
         myprocess.wait()
