@@ -12,15 +12,10 @@ my_env = os.environ.copy()
 cwd = os.getcwd()
 
 
-# my_env['MACHINE'] =  'openvario-7-CH070'
-# my_env['MACHINE'] =  'openvario-57-lvds'
-# my_env['MACHINE'] =  'openvario-43-rgb'
-my_env['MACHINE'] =  'openvario-7-AM070-DS2'
+my_env['MACHINE'] =  'openvario-7-CH070'
 
-myprocess = subprocess.Popen(['/opt/openvario/scripts/build-ov.sh'], env = my_env, cwd=cwd+'/poky', shell = False)
-# myprocess = subprocess.Popen(['/opt/openvario/scripts/build-u-boot.sh'], env = my_env, cwd=cwd+'/poky', shell = False)
+myprocess = subprocess.Popen(['scripts/build-ov.sh'], env = my_env, cwd=cwd+'/poky', shell = False)
 myprocess.wait()
-
 
 # ========================================================================================================================
 # ========================================================================================================================
