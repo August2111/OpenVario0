@@ -1,6 +1,7 @@
 # buildfolders
 *poky/*
 *build/*
+/build-scripts
 
 # Prerequisites
 *.d
