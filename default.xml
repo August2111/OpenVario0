@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <default remote="ov" revision="default"/>
+
+  <!-- You can have as many remote repositories as you like -->
+
+  <remote name="yocto" fetch="git://git.yoctoproject.org" />
+  <remote name="oe" fetch="git://git.openembedded.org" />
+  <remote name="sunxi" fetch="git://github.com/linux-sunxi" />
+  <remote name="ov" fetch="git://github.com/Openvario" />
+
+  <!-- List all the repositories you want to fetch -->
+  <!-- "name": git repository's name on hosting server
+       "remote": the remote host from above (if not the default)
+       "revision": commitish to checkout (if not the default)
+       "path": directory where git repository gets cloned/synced -->
+
+  <project name="poky" revision="refs/heads/warrior" remote="yocto" />
+  <project name="meta-openembedded" revision="refs/heads/warrior"  remote="oe" path="poky/meta-openembedded" />
+  <project name="meta-sunxi" revision="refs/heads/warrior"  remote="sunxi" path="poky/meta-sunxi" />
+  <project name="meta-openvario" revision="refs/heads/warrior"  remote="ov" path="poky/meta-openvario" />
+  
+</manifest>
