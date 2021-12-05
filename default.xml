@@ -15,9 +15,9 @@
        "revision": commitish to checkout (if not the default)
        "path": directory where git repository gets cloned/synced -->
 
-  <project name="poky" revision="refs/heads/warrior" remote="yocto" />
-  <project name="meta-openembedded" revision="refs/heads/warrior"  remote="oe" path="poky/meta-openembedded" />
-  <project name="meta-sunxi" revision="refs/heads/warrior"  remote="sunxi" path="poky/meta-sunxi" />
-  <project name="meta-openvario" revision="refs/heads/warrior"  remote="ov" path="poky/meta-openvario" />
+  <project name="poky" revision="refs/heads/hardknott" remote="yocto" />
+  <project name="meta-openembedded" revision="refs/heads/hardknott"  remote="oe" path="poky/meta-openembedded" />
+  <project name="meta-sunxi" revision="refs/heads/hardknott"  remote="sunxi" path="poky/meta-sunxi" />
+  <project name="meta-openvario" revision="refs/heads/hardknott"  remote="ov" path="poky/meta-openvario" />
   
 </manifest>
