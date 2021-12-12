@@ -5,6 +5,8 @@ import os, shutil, subprocess
 remote = 'origin'
 branch  = 'hardknott'
 
+
+
 print('repo-sync.py with Branch', branch)
 my_env = os.environ.copy()
 
@@ -35,8 +37,22 @@ def check_out(_remote, _branch, path, git_url = ''):
             print('Checkout: ', _branch)
         print('------------------------------------------------------')
 
+check_out(remote, 'main', './', 'git://github.com/August2111/OpenVario')
+
+myprocess = subprocess.Popen(['sudo', 'chmod', 'a+rx', './*'], env = my_env, cwd=path, shell = False)
+myprocess.wait()
+myprocess = subprocess.Popen(['sudo', 'chmod', 'a+rx', './scripts/*'], env = my_env, cwd=path, shell = False)
+myprocess.wait()
+
+
 check_out(remote, branch, 'poky', 'git://git.yoctoproject.org/poky')
 check_out(remote, branch, 'poky/meta-openembedded', 'git://git.openembedded.org/meta-openembedded')
 check_out(remote, branch, 'poky/meta-sunxi', 'git://github.com/linux-sunxi/meta-sunxi')
 check_out(remote, branch, 'poky/meta-openvario', 'https://github.com/August2111/meta-openvario')
 
+# myprocess = subprocess.Popen(['sudo', 'chmod', 'a+rx', './*'], env = my_env, cwd=path, shell = False)
+# myprocess.wait()
+# myprocess = subprocess.Popen(['sudo', 'chmod', 'a+rx', './scripts/*'], env = my_env, cwd=path, shell = False)
+# myprocess.wait()
+# 
+# 

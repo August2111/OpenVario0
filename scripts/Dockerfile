@@ -2,7 +2,7 @@ FROM crops/poky:debian-11
 
 USER root
 
-COPY files/sources.list /etc/apt/sources.list
+# COPY files/sources.list /etc/apt/sources.list
 
 RUN apt-get update &&\
 	apt-get install -y --no-install-recommends python3-dev imagemagick ffmpeg git curl rsync && apt-get clean

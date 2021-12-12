@@ -11,10 +11,20 @@ print('')
 my_env = os.environ.copy()
 cwd = os.getcwd()
 
+machines = [
+  'openvario-7-CH070',
+  'openvario-7-PQ070',
+  'openvario-7-AM070',
+  'openvario-57-lvds',
+  'openvario-43-rgb',
+  'openvario-7-AM070-DS2',
+  'openvario-7-CH070-DS2',
+  'openvario-57-ldvs-DS2',
+]
 
-my_env['MACHINE'] =  'openvario-7-CH070'
+my_env['MACHINE'] =  machines[0]
 
-myprocess = subprocess.Popen(['scripts/build-ov.sh'], env = my_env, cwd=cwd+'/poky', shell = False)
+myprocess = subprocess.Popen(['scripts/build-ov.sh'], env = my_env, cwd=cwd, shell = False)
 myprocess.wait()
 
 # ========================================================================================================================

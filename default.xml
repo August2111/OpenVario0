@@ -7,7 +7,8 @@
   <remote name="yocto" fetch="git://git.yoctoproject.org" />
   <remote name="oe" fetch="git://git.openembedded.org" />
   <remote name="sunxi" fetch="git://github.com/linux-sunxi" />
-  <remote name="ov" fetch="git://github.com/Openvario" />
+  <!-- <remote name="ov" fetch="git://github.com/Openvario" /> -->
+  <remote name="ov" fetch="git://github.com/August2111" />
 
   <!-- List all the repositories you want to fetch -->
   <!-- "name": git repository's name on hosting server
