@@ -11,6 +11,8 @@ print('repo-sync.py with Branch', branch)
 my_env = os.environ.copy()
 
 def check_out(_remote, _branch, path, git_url = ''):
+        if path == '':
+            path = os.getcwd()
         if not os.path.isdir(path + '/.git'):
             os.system('git clone ' + git_url + '  -b ' + _branch + ' ' + path)
             print('Cloned: ', _branch)
@@ -37,7 +39,8 @@ def check_out(_remote, _branch, path, git_url = ''):
             print('Checkout: ', _branch)
         print('------------------------------------------------------')
 
-check_out(remote, 'main', './', 'git://github.com/August2111/OpenVario')
+path = os.getcwd()
+check_out(remote, 'main', path, 'git://github.com/August2111/OpenVario')
 
 myprocess = subprocess.Popen(['sudo', 'chmod', 'a+rx', './*'], env = my_env, cwd=path, shell = False)
 myprocess.wait()
