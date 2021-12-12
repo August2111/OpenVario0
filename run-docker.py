@@ -35,9 +35,9 @@ if sys.platform.startswith('win'):
 else:
     # is linux:
     if with_docker_build:
-        myprocess = subprocess.Popen(['sudo', 'docker', 'build', '--file', dockerfile, '-t', container, './'], env = my_env, cwd = cwd, shell = False)
+        myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', container, './'], env = my_env, cwd = cwd, shell = False)
         myprocess.wait()
-    myprocess = subprocess.Popen(['sudo', 'docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
+    myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
        , '--workdir=' + target_dir], env = my_env, cwd = cwd, shell = False)
 myprocess.wait()
 
