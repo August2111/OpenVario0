@@ -22,12 +22,49 @@ machines = [
   'openvario-57-ldvs-DS2',
 ]
 
-my_env['MACHINE'] =  machines[0]
+# one only!
+machines = ['openvario-7-AM070-DS2']
 
-myprocess = subprocess.Popen(['scripts/build-ov.sh'], env = my_env, cwd=cwd, shell = False)
+my_env['TEMPLATECONF'] = 'meta-openvario/conf'
+myprocess = subprocess.Popen([
+    'ls' , '-l'
+], env = my_env, cwd=cwd+'/poky', shell = False)
 myprocess.wait()
+
+#myprocess = subprocess.Popen([
+#    'TEMPLATECONF=meta-openvario/conf source',
+#     'source',
+#    './oe-init-build-env' # /home/pokyuser
+#], env = my_env, cwd=cwd+'/poky', shell = False)
+#myprocess.wait()
+
+
+for machine in machines:
+    print('=== Build OV with machine: ', machine, ' ===')
+    my_env['MACHINE'] =  machine
+
+    # myprocess = subprocess.Popen([cwd+'scripts/build-ov.sh', 'xcsoar-maps-alps'], env = my_env, cwd=cwd+'poky, shell = False)
+    myprocess = subprocess.Popen([
+        'printenv',
+    ], env = my_env, cwd=cwd+'/poky', shell = True)
+    myprocess.wait()
+    print('===============================================')
+    print('===============================================')
+
+    myprocess = subprocess.Popen([
+        'source',
+        'oe-init-build-env',
+        'build',
+        '&&',
+        'bitbake',
+        'xcsoar-maps-alps'
+    ], env = my_env, cwd=cwd+'/poky', shell = True)
+    myprocess.wait()
+    print('=== OV with machine: ', machine, ' is ready ===')
+    print('===============================================')
+    print('===============================================')
 
 # ========================================================================================================================
 # ========================================================================================================================
 #
-print('Finish!!!!')
+print('Finish all machines!!!!')

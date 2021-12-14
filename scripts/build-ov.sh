@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd poky
+# cd poky
 TEMPLATECONF=meta-openvario/conf source oe-init-build-env
 
-bitbake openvario-image
+bitbake $1
 

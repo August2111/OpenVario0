@@ -7,37 +7,58 @@ branch  = 'hardknott'
 print('python run-docker.py with Branch ', branch)
 print('==========================================')
 my_env = os.environ.copy()
-if sys.platform.startswith('win'):
-    # is win
+if sys.platform.startswith('win'):    # is win
     cwd = os.getcwd().replace('\\', '/')
-else:
-    # is linux:
+else:                                 # is linux:
     cwd = os.getcwd()
 
-container = 'openvario/' + branch + ':latest'
+image = 'openvario/' + branch + ':latest'
 
 print(' Path-Variable is: ', cwd, '!!!!!!!!!!!!!!')
 
 dockerfile = 'scripts/Dockerfile'
 
-# target_dir = '/opt/openvario'
-target_dir = '/home/pokyuser'
-with_docker_build = True
+# test image detection
+# fileout = ''
+# stdout=out,
+out = open('docker-out.txt', 'w')
+# myprocess = subprocess.Popen(['docker', 'image', 'ls', image], env = my_env, cwd = cwd, stdout = out, shell = False)
+# myprocess = subprocess.Popen(['docker', 'image', 'ls', '-q', '--filter', "reference=*/*:latest"], env = my_env, cwd = cwd, stdout = out, shell = False)
+myprocess = subprocess.Popen(['docker', 'image', 'ls', '-q', image], env = my_env, cwd = cwd, stdout = out, shell = False)
+# myprocess = subprocess.Popen(['docker', 'image', 'ls' ,'--filter', '"dangling=true"', image], env = my_env, cwd = cwd, stdout = out, shell = False)
+# myprocess = subprocess.Popen(['docker', 'image', 'ls' ,'--filter', '"dangling=true"', '>', 'docker-ls.txt'], env = my_env, cwd = cwd, shell = False)
+myprocess.wait()
+out.close()
+
+out = open('docker-out.txt', 'r')
+image_id = out.read()
+out.close()
+print('image: ', image,', image-id = ', image_id, ' --- ', len(image_id))
+with_docker_build = len(image_id) > 0
+
+#    with_docker_build = True
 if sys.platform.startswith('win'):
     # is win, but this is very preliminary
+    target_dir = '/opt/openvario'
+    target_dir = '/home/pokyuser'  # overwrite previous!
+
     if with_docker_build:
-        myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', container, './'], env = my_env, cwd = cwd, shell = False)
+        myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', image, './'], env = my_env, cwd = cwd, shell = False)
         myprocess.wait()
-    # myprocess = subprocess.Popen(['docker', 'run', '-u "pokyuser"' , '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
-    # myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
-    myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
-       ], env = my_env, cwd = cwd, shell = False)
+    # myprocess = subprocess.Popen(['docker', 'run', '-u "pokyuser"' , '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', image
+    # myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', image
+    myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', image
+    , './build-image.py'  ], env = my_env, cwd = cwd, shell = False)
+    # , '/opt/openvario/build-image.py'  ], env = my_env, cwd = cwd, shell = False)
 else:
     # is linux:
+    target_dir = '/opt/openvario'
+    # target_dir = '/home/pokyuser'
+
     if with_docker_build:
-        myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', container, './'], env = my_env, cwd = cwd, shell = False)
+        myprocess = subprocess.Popen(['docker', 'build', '--file', dockerfile, '-t', image, './'], env = my_env, cwd = cwd, shell = False)
         myprocess.wait()
-    myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', container
+    myprocess = subprocess.Popen(['docker', 'run', '--rm', '--mount', 'type=bind,source='+ cwd + ',target=' + target_dir, '-it', image
        , '--workdir=' + target_dir], env = my_env, cwd = cwd, shell = False)
 myprocess.wait()
 
