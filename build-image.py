@@ -24,9 +24,13 @@ if len(sys.argv) > 1:
           # n.d. 'openvario-57-ldvs-DS2',
         ]
     elif sys.argv[1] == 'AM70':
-        machines = ['openvario-7-AM070-DS2']
+                machines = ['openvario-7-AM070-DS2']
+    elif sys.argv[1] == 'PQ70':
+                machines = ['openvario-7-PQ070']
+    elif sys.argv[1] == 'TX70':
+                machines = ['openvario-7-CH070']
     else:
-        machines = ['openvario-7-CH070']
+                machines = [sys.argv[1]]
 else:
     # only one!
     machines = ['openvario-7-CH070']
@@ -49,8 +53,10 @@ for machine in machines:
     print('=== Build OV with machine: ', machine, ' ===')
     my_env['MACHINE'] =  machine
 
+    target = 'xcsoar-maps-alps'
+    target = 'openvario-image'
     
-    myprocess = subprocess.Popen([cwd+'/scripts/build-ov.sh', 'xcsoar-maps-alps'], env = my_env, cwd=cwd+'/poky', shell = False)
+    myprocess = subprocess.Popen([cwd+'/scripts/build-ov.sh', target ], env = my_env, cwd=cwd+'/poky', shell = False)
     
     myprocess = subprocess.Popen([
         'printenv',
