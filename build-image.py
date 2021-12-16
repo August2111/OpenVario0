@@ -11,19 +11,25 @@ print('')
 my_env = os.environ.copy()
 cwd = os.getcwd()
 
-machines = [
-  'openvario-7-CH070',
-  'openvario-7-PQ070',
-  'openvario-7-AM070',
-  'openvario-57-lvds',
-  'openvario-43-rgb',
-  'openvario-7-AM070-DS2',
-  'openvario-7-CH070-DS2',
-  'openvario-57-ldvs-DS2',
-]
-
-# one only!
-machines = ['openvario-7-AM070-DS2']
+if len(sys.argv) > 1:
+    if sys.argv[1] == '--all' or sys.argv[1] == '-a':
+          machines = [
+          'openvario-7-CH070',
+          'openvario-7-PQ070',
+          # n.d. 'openvario-7-AM070',
+          'openvario-57-lvds',
+          'openvario-43-rgb',
+          'openvario-7-AM070-DS2',
+          'openvario-7-CH070-DS2',
+          # n.d. 'openvario-57-ldvs-DS2',
+        ]
+    elif sys.argv[1] == 'AM70':
+        machines = ['openvario-7-AM070-DS2']
+    else:
+        machines = ['openvario-7-CH070']
+else:
+    # only one!
+    machines = ['openvario-7-CH070']
 
 my_env['TEMPLATECONF'] = 'meta-openvario/conf'
 myprocess = subprocess.Popen([
@@ -43,7 +49,9 @@ for machine in machines:
     print('=== Build OV with machine: ', machine, ' ===')
     my_env['MACHINE'] =  machine
 
-    # myprocess = subprocess.Popen([cwd+'scripts/build-ov.sh', 'xcsoar-maps-alps'], env = my_env, cwd=cwd+'poky, shell = False)
+    
+    myprocess = subprocess.Popen([cwd+'/scripts/build-ov.sh', 'xcsoar-maps-alps'], env = my_env, cwd=cwd+'/poky', shell = False)
+    
     myprocess = subprocess.Popen([
         'printenv',
     ], env = my_env, cwd=cwd+'/poky', shell = True)
