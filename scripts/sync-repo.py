@@ -4,7 +4,7 @@ import os, shutil, subprocess
 
 remote = 'origin'
 branch  = 'hardknott'
-# branch  = 'honister'
+branch  = 'honister'
 
 
 
